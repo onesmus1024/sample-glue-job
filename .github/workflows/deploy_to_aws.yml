@@ -101,5 +101,7 @@ jobs:
         with:
           name: sample-glue-job
           template: aws/cloudformation.yaml
+          capabilities: CAPABILITY_NAMED_IAM
+          
         
 
