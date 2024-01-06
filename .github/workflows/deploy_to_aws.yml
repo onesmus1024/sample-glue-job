@@ -33,8 +33,11 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-          pip install poetry
-          pip install -r pyproject.toml
+          pip install pip-tools
+          python -m piptools compile \
+            -o requirements.txt \
+            pyproject.toml
+          pip install -r requirements.txt
       - name: Run Tests
         run: |
           pytest
