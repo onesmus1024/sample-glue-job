@@ -91,7 +91,7 @@ jobs:
         with: 
           fetch-depth: 0 
       - name: Deploy CloudFormation Stack
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        uses: aws-actions/aws-cloudformation-github-deploy@master
         with:
           name: sample-glue-job
           template: aws/cloudformation.yaml
