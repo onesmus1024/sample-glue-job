@@ -40,6 +40,8 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+    DependsOn:
+      - GlueJobRole
 
 
   GlueJobRole:
