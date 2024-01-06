@@ -25,6 +25,7 @@ Resources:
     Type: AWS::Glue::Job
     Properties:
       Name: !Ref GlueJobName
+      Role: !GetAtt GlueJobRole.Arn
       Command:
         Name: glueetl
         ScriptLocation: !Sub s3://${ArtifactBucket}/glue.py
@@ -39,3 +40,67 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+
+
+  GlueJobRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${GlueJobName}-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - glue.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Policies:
+        - PolicyName: !Sub ${GlueJobName}-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:GetObject'
+                  - 's3:PutObject'
+                  - 's3:DeleteObject'
+                  - 's3:ListBucket'
+                Resource:
+                  - !Sub arn:aws:s3:::${ArtifactBucket}/*
+                  - !Sub arn:aws:s3:::${ArtifactBucket}
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'glue:GetJobRun'
+                  - 'glue:GetJobRuns'
+                  - 'glue:GetJobs'
+                  - 'glue:GetJob'
+                  - 'glue:StartJobRun'
+                  - 'glue:BatchStopJobRun'
+                  - 'glue:UpdateJob'
+                  - 'glue:DeleteJob'
+                  - 'glue:GetJobBookmark'
+                  - 'glue:GetTriggers'
+                  - 'glue:GetTrigger'
+                  - 'glue:CreateTrigger'
+                  - 'glue:UpdateTrigger'
+                  - 'glue:DeleteTrigger'
+                  - 'glue:StartTrigger'
+                  - 'glue:BatchStopTrigger'
+                  - 'glue:GetTriggerRuns'
+                  - 'glue:GetTriggerRun'
+                  - 'glue:BatchGetTriggers'
+                  - 'glue:CreateJob'
+                  - 'glue:BatchDeleteConnection'
+                  - 'glue:BatchCreatePartition'
+                  - 'glue:BatchDeletePartition'
+                  - 'glue:BatchGetPartition'
+                  - 'glue:CreateConnection'
