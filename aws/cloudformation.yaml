@@ -25,7 +25,6 @@ Resources:
     Type: AWS::Glue::Job
     Properties:
       Name: !Ref GlueJobName
-      Role: !GetAtt GlueJobRole.Arn
       Command:
         Name: glueetl
         ScriptLocation: !Sub s3://${ArtifactBucket}/glue.py
