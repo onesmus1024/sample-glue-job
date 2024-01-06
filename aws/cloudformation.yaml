@@ -55,6 +55,7 @@ Resources:
                 - glue.amazonaws.com
             Action:
               - 'sts:AssumeRole'
+            Resource: '*'
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
       Policies:
