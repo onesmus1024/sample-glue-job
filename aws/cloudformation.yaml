@@ -37,9 +37,6 @@ Resources:
       MaxRetries: 0
       NumberOfWorkers: 2
       WorkerType: G.1X
-      Tags:
-        - Key: "Environment"
-          Value: !Ref Environment
     DependsOn:
       - GlueJobRole
 
