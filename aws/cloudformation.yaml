@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: AWS CloudFormation Template for Glue ETL Job
+
+Parameters:
+  Environment:
+    Type: String
+    Description: Environment
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+  GlueJobName:
+    Type: String
+    Description: Glue Job Name
+    Default: !join ['-', [!Ref Environment, 'glue-job']]
+  ArtifactBucket:
+    Type: String
+    Description: S3 Bucket for Glue Job Artifacts
+    Default: !join ['-', [!Ref Environment, 'glue-artifacts']]
+
+Resources:
+  GlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Ref GlueJobName
+      Role: !GetAtt GlueJobRole.Arn
+      Command:
+        Name: glueetl
+        ScriptLocation: !Sub s3://${ArtifactBucket}/glue.py
+      DefaultArguments:
+        "--TempDir": !Sub s3://${ArtifactBucket}/temp
+        "--enable-metrics": ""
+      GlueVersion: 2.0
+      MaxCapacity: 2
+      MaxRetries: 0
+      NumberOfWorkers: 2
+      WorkerType: G.1X
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment

@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "sample-glue-job"
+version = "0.1.0"
+description = ""
+authors = ["Onesmus Wambugu <onesmus1024@gmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.1.4"
+poetry = "^1.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
