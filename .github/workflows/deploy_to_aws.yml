@@ -34,12 +34,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install poetry
-          pip install pytest
-          poetry install --no-root
+          pip install -r pyproject.toml
       - name: Run Tests
         run: |
-          poetry shell
-          poetry run pytest
+          pytest
       
   Build:
     runs-on: ubuntu-latest
