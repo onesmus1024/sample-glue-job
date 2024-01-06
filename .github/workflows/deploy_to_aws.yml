@@ -66,9 +66,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Build Using Poetry
-        run: |
-          poetry build
       - name: Create Artifact Bucket
         run: |
           aws s3api create-bucket --bucket $GITHUB_ENV.BUCKET_NAME --region $GITHUB_ENV.AWS_REGION --create-bucket-configuration LocationConstraint=$GITHUB_ENV.AWS_REGION
