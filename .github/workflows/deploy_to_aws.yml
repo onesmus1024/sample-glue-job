@@ -78,7 +78,7 @@ jobs:
 
       - name: Create Artifact Bucket
         run: |
-          aws s3api create-bucket --bucket ${{ env.BUCKET_NAME }} --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
+          aws s3api create-bucket --bucket ${{ env.BUCKET_NAME }} 
       - name: Upload Artifact to S3
         run: |
           aws s3 cp src/ s3://{{ env.BUCKET_NAME }}/ --recursive
