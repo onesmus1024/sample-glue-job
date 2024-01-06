@@ -36,6 +36,9 @@ jobs:
           pip install poetry
           pip install pytest
           poetry install --no-root
+      - name: Run Tests
+        run: |
+          poetry shell
           poetry run pytest
       
   Build:
