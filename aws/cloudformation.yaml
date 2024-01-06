@@ -38,7 +38,7 @@ Resources:
       NumberOfWorkers: 2
       WorkerType: G.1X
       Tags:
-        - Key: Environment
+        - Key: "Environment"
           Value: !Ref Environment
     DependsOn:
       - GlueJobRole
