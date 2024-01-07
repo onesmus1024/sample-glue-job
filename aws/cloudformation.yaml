@@ -130,7 +130,4 @@ Resources:
                   - 'glue:StartTrigger'
                   - 'glue:UpdateTrigger'
                   - 'glue:BatchCreatePartition'
-                  
-
-                
                 Resource: '*'
